@@ -43,8 +43,6 @@ const discordRPC = async () => {
             largeImageKey: "qbittorrent-logo",
             largeImageText: `qBittorrent ${version}`
     })
-
-    process.on("unhandledRejection", console.error)
 }
 
 client.on("connected", async () => {
@@ -52,5 +50,7 @@ client.on("connected", async () => {
 
 	setInterval(() => { discordRPC() }, 10000) // update every 10 seconds
 })
+
+process.on("unhandledRejection", console.error)
 
 client.login({ clientId });

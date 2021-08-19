@@ -1,12 +1,12 @@
 # qBittorrent Rich Presence
 
-[![d-r-p](https://img.shields.io/github/package-json/dependency-version/LockBlock-dev/qbittorrent-rp/discord-rich-presence)](https://www.npmjs.com/package/discord-rich-presence) [![qb-api-v2](https://img.shields.io/github/package-json/dependency-version/LockBlock-dev/qbittorrent-rp/qbittorrent-api-v2)](https://www.npmjs.com/package/qbittorrent-api-v2)
+[![d-r-p](https://img.shields.io/github/package-json/dependency-version/weebi/qbittorrent-rp/discord-rpc)](https://www.npmjs.com/package/discord-rpc) [![qb-api-v2](https://img.shields.io/github/package-json/dependency-version/weebi/qbittorrent-rp/qbittorrent-api-v2)](https://www.npmjs.com/package/qbittorrent-api-v2)
 
-[![GitHub stars](https://img.shields.io/github/stars/LockBlock-dev/qbittorrent-rp.svg)](https://github.com/LockBlock-dev/qbittorrent-rp/stargazers)
+[![GitHub stars](https://img.shields.io/github/stars/weebi/qbittorrent-rp.svg)](https://github.com/weebi/qbittorrent-rp/stargazers)
 
 Discord Rich Presence for [qBittorrent](https://www.qbittorrent.org/)
 
-![Rich Presence preview](/preview.jpg)
+![Rich Presence preview](/preview.png)
 
 Note that you need QBittorrent already launched before starting the rich presence.
 
@@ -16,7 +16,7 @@ Note that you need QBittorrent already launched before starting the rich presenc
 
 • Download the project or clone it
 
-• Go to the GMiner RP folder and do `npm install`
+• Go to the qbittorrent-rp folder and do `npm install`
 
 • Go to your qBittorrent settings and activate **WEB UI**
 
