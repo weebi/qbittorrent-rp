@@ -1,8 +1,11 @@
 const qbit = require("qbittorrent-api-v2")
+const discord = require("discord-rpc")
 
 const config = require("./config")
+const clientId = "877963304813867068"
+const startTimestamp = new Date()
 
-const client = require("discord-rich-presence")("855773421698940969")
+const client = new discord.Client({ transport: 'ipc' });
 
 const bytesToSize = (bytes) => {
     const sizes = ['B', 'KB', 'MB', 'GB', 'TB']
@@ -25,51 +28,29 @@ const averageRatio = (torrents) => {
 }
 
 const discordRPC = async () => {
-
     const api = await qbit.connect(`http://${config.host.ip}:${config.host.port}`, config.user, config.password)
-
     var torrents, speeds, version
 
-    client.on("connected", async () => {
+    torrents = await api.torrents()
+    speeds = await api.transferInfo()
+    version = await api.appVersion()
+    ratio = averageRatio(torrents)
 
-        console.log("Connected to Discord !")
-
-        startTimestamp = new Date()
-        torrents = await api.torrents()
-        speeds = await api.transferInfo()
-        version = await api.appVersion()
-        ratio = averageRatio(torrents)
-
-        client.updatePresence({
-            details: `${torrents.length} active torrents | Average ratio: ${ratio}`,
-            state: `UP: ${bytesToSize(speeds.up_info_speed)}/s | DOWN: ${bytesToSize(speeds.dl_info_speed)}/s`,
+    client.setActivity({
+        details: `${torrents.length} active torrents | Average ratio: ${ratio}`,
+            state: `↑: ${bytesToSize(speeds.up_info_speed)}/s | ↓: ${bytesToSize(speeds.dl_info_speed)}/s`,
             startTimestamp,
             largeImageKey: "qbittorrent-logo",
             largeImageText: `qBittorrent ${version}`
-        })
-
-        setInterval(async () => {
-
-            torrents = await api.torrents()
-            speeds = await api.transferInfo()
-            version = await api.appVersion()
-            ratio = averageRatio(torrents)
-
-            client.updatePresence({
-                details: `${torrents.length} active torrents | Average ratio: ${ratio}`,
-                state: `UP: ${bytesToSize(speeds.up_info_speed)} | DOWN: ${bytesToSize(speeds.dl_info_speed)}`,
-                startTimestamp,
-                largeImageKey: "qbittorrent-logo",
-                largeImageText: `qBittorrent ${version}`,
-            })
-
-            console.log("Presence Updated !")
-
-        }, 10000)
-
     })
 
     process.on("unhandledRejection", console.error)
 }
 
-discordRPC()
+client.on("connected", async () => {
+    console.log("Connected to Discord!")
+
+	setInterval(() => { discordRPC() }, 10000) // update every 10 seconds
+})
+
+client.login({ clientId });
