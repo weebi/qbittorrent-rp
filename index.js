@@ -16,8 +16,7 @@ const bytesToSize = (bytes) => {
 }
 
 const averageRatio = (torrents) => {
-    var ratio = 0
-    var c = 0
+    var ratio, c = 0
 
     for (var t in torrents) {
         ratio += torrents[t].ratio
@@ -29,7 +28,7 @@ const averageRatio = (torrents) => {
 
 const discordRPC = async () => {
     const api = await qbit.connect(`http://${config.host.ip}:${config.host.port}`, config.user, config.password)
-    var torrents, speeds, version
+    let torrents, speeds, version
 
     torrents = await api.torrents()
     speeds = await api.transferInfo()
@@ -38,17 +37,16 @@ const discordRPC = async () => {
 
     client.setActivity({
         details: `${torrents.length} active torrents | Average ratio: ${ratio}`,
-            state: `↑: ${bytesToSize(speeds.up_info_speed)}/s | ↓: ${bytesToSize(speeds.dl_info_speed)}/s`,
-            startTimestamp,
-            largeImageKey: "qbittorrent-logo",
-            largeImageText: `qBittorrent ${version}`
+        state: `↑: ${bytesToSize(speeds.up_info_speed)}/s | ↓: ${bytesToSize(speeds.dl_info_speed)}/s`,
+        startTimestamp,
+        largeImageKey: "qbittorrent-logo",
+        largeImageText: `qBittorrent ${version}`
     })
 }
 
 client.on("connected", async () => {
     console.log("Connected to Discord!")
-
-	setInterval(() => { discordRPC() }, 10000) // update every 10 seconds
+    setInterval(() => { discordRPC() }, 10000) // update activity every 10 seconds
 })
 
 process.on("unhandledRejection", console.error)

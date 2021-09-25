@@ -10,7 +10,4 @@ module.exports = {
 
     password: "password",
     //password for the web API
-
-    showUpdateLogs: true,
-    //if you want to display the logs of the RP (when the presence is updated)
-  }
+}

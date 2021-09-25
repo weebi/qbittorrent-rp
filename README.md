@@ -8,7 +8,7 @@ Discord Rich Presence for [qBittorrent](https://www.qbittorrent.org/)
 
 ![Rich Presence preview](/preview.png)
 
-Note that you need QBittorrent already launched before starting the rich presence.
+Note that you need qBittorrent already launched before starting the rich presence.
 
 ## How to use
 
@@ -33,8 +33,6 @@ user: "username",
 //username for the web API
 password: "password",
 //password for the web API
-showUpdateLogs: true,
-//if you want to display the logs of the RP (when the presence is updated)
 ```
 
 • Run it by doing `node index.js`
